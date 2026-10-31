@@ -6,8 +6,10 @@ function cycleWitness(ids,successors){
  for(const id of ids)if(!state.has(id)){visit(id);if(result)return result;}
  throw new Error('Could not locate cycle witness.');
 }
-export function schedule(input){
- const plan=validatePlan(input),tasks=new Map(plan.tasks.map(t=>[t.id,t])),ids=[...tasks.keys()].sort(compareID),successors=new Map(ids.map(id=>[id,[]])),remaining=new Map(ids.map(id=>[id,tasks.get(id).needs.length]));
+export function schedule(input,adjustment={taskId:null,extraMinutes:0}){
+ const plan=validatePlan(input);
+ if(!adjustment||!Number.isInteger(adjustment.extraMinutes)||adjustment.extraMinutes<0||adjustment.extraMinutes>1440||(!adjustment.taskId&&adjustment.extraMinutes)||adjustment.taskId&&!plan.tasks.some(t=>t.id===adjustment.taskId))throw new Error('Invalid duration adjustment.');
+ const tasks=new Map(plan.tasks.map(t=>[t.id,t])),ids=[...tasks.keys()].sort(compareID),successors=new Map(ids.map(id=>[id,[]])),remaining=new Map(ids.map(id=>[id,tasks.get(id).needs.length]));
  for(const task of tasks.values())for(const predecessor of task.needs)successors.get(predecessor).push(task.id);
  for(const values of successors.values())values.sort(compareID);
  const ready=ids.filter(id=>remaining.get(id)===0),order=[];
@@ -17,7 +19,8 @@ export function schedule(input){
  for(const id of order){
   const task=tasks.get(id),needs=[...task.needs].sort(compareID),earliestStart=Math.max(0,...needs.map(dep=>rows.get(dep).earliestFinish));
   parent.set(id,needs.find(dep=>rows.get(dep).earliestFinish===earliestStart)??null);
-  rows.set(id,{...task,needs,earliestStart,earliestFinish:earliestStart+task.minutes});
+  const minutes=task.minutes+(id===adjustment.taskId?adjustment.extraMinutes:0);
+  rows.set(id,{...task,minutes,needs,earliestStart,earliestFinish:earliestStart+minutes});
  }
  const makespan=Math.max(...[...rows.values()].map(row=>row.earliestFinish));
  for(const id of [...order].reverse()){
