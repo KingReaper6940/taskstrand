@@ -8,7 +8,7 @@ function cycleWitness(ids,successors){
 }
 export function schedule(input,adjustment={taskId:null,extraMinutes:0}){
  const plan=validatePlan(input);
- if(!adjustment||!Number.isInteger(adjustment.extraMinutes)||adjustment.extraMinutes<0||adjustment.extraMinutes>1440||(!adjustment.taskId&&adjustment.extraMinutes)||adjustment.taskId&&!plan.tasks.some(t=>t.id===adjustment.taskId))throw new Error('Invalid duration adjustment.');
+ if(!adjustment||(adjustment.taskId!==null&&typeof adjustment.taskId!=='string')||!Number.isInteger(adjustment.extraMinutes)||adjustment.extraMinutes<0||adjustment.extraMinutes>1440||(!adjustment.taskId&&adjustment.extraMinutes)||adjustment.taskId&&!plan.tasks.some(t=>t.id===adjustment.taskId))throw new Error('Invalid duration adjustment.');
  const tasks=new Map(plan.tasks.map(t=>[t.id,t])),ids=[...tasks.keys()].sort(compareID),successors=new Map(ids.map(id=>[id,[]])),remaining=new Map(ids.map(id=>[id,tasks.get(id).needs.length]));
  for(const task of tasks.values())for(const predecessor of task.needs)successors.get(predecessor).push(task.id);
  for(const values of successors.values())values.sort(compareID);

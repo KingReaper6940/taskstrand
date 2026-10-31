@@ -1,0 +1,275 @@
+{
+  "schema": "taskstrand-report-v1",
+  "unit": "elapsed minutes",
+  "plan": {
+    "title": "Small release",
+    "tasks": [
+      {
+        "id": "A",
+        "label": "Confirm scope",
+        "minutes": 10,
+        "needs": []
+      },
+      {
+        "id": "B",
+        "label": "Build the change",
+        "minutes": 30,
+        "needs": [
+          "A"
+        ]
+      },
+      {
+        "id": "C",
+        "label": "Prepare assets",
+        "minutes": 15,
+        "needs": [
+          "A"
+        ]
+      },
+      {
+        "id": "D",
+        "label": "Review together",
+        "minutes": 10,
+        "needs": [
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "E",
+        "label": "Ready to ship",
+        "minutes": 0,
+        "needs": [
+          "D"
+        ]
+      }
+    ]
+  },
+  "baseline": {
+    "title": "Small release",
+    "makespan": 50,
+    "order": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "rows": [
+      {
+        "id": "A",
+        "label": "Confirm scope",
+        "minutes": 10,
+        "needs": [],
+        "earliestStart": 0,
+        "earliestFinish": 10,
+        "latestFinish": 10,
+        "latestStart": 0,
+        "slack": 0,
+        "critical": true
+      },
+      {
+        "id": "B",
+        "label": "Build the change",
+        "minutes": 30,
+        "needs": [
+          "A"
+        ],
+        "earliestStart": 10,
+        "earliestFinish": 40,
+        "latestFinish": 40,
+        "latestStart": 10,
+        "slack": 0,
+        "critical": true
+      },
+      {
+        "id": "C",
+        "label": "Prepare assets",
+        "minutes": 15,
+        "needs": [
+          "A"
+        ],
+        "earliestStart": 10,
+        "earliestFinish": 25,
+        "latestFinish": 40,
+        "latestStart": 25,
+        "slack": 15,
+        "critical": false
+      },
+      {
+        "id": "D",
+        "label": "Review together",
+        "minutes": 10,
+        "needs": [
+          "B",
+          "C"
+        ],
+        "earliestStart": 40,
+        "earliestFinish": 50,
+        "latestFinish": 50,
+        "latestStart": 40,
+        "slack": 0,
+        "critical": true
+      },
+      {
+        "id": "E",
+        "label": "Ready to ship",
+        "minutes": 0,
+        "needs": [
+          "D"
+        ],
+        "earliestStart": 50,
+        "earliestFinish": 50,
+        "latestFinish": 50,
+        "latestStart": 50,
+        "slack": 0,
+        "critical": true
+      }
+    ],
+    "criticalIDs": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "representativeChain": [
+      "A",
+      "B",
+      "D",
+      "E"
+    ],
+    "scope": "Elapsed-minute finish-to-start precedence model with unlimited parallel capacity. No staffing, calendars, costs, risk or execution guarantee."
+  },
+  "scenario": {
+    "title": "Small release",
+    "makespan": 55,
+    "order": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E"
+    ],
+    "rows": [
+      {
+        "id": "A",
+        "label": "Confirm scope",
+        "minutes": 10,
+        "needs": [],
+        "earliestStart": 0,
+        "earliestFinish": 10,
+        "latestFinish": 10,
+        "latestStart": 0,
+        "slack": 0,
+        "critical": true
+      },
+      {
+        "id": "B",
+        "label": "Build the change",
+        "minutes": 30,
+        "needs": [
+          "A"
+        ],
+        "earliestStart": 10,
+        "earliestFinish": 40,
+        "latestFinish": 45,
+        "latestStart": 15,
+        "slack": 5,
+        "critical": false
+      },
+      {
+        "id": "C",
+        "label": "Prepare assets",
+        "minutes": 35,
+        "needs": [
+          "A"
+        ],
+        "earliestStart": 10,
+        "earliestFinish": 45,
+        "latestFinish": 45,
+        "latestStart": 10,
+        "slack": 0,
+        "critical": true
+      },
+      {
+        "id": "D",
+        "label": "Review together",
+        "minutes": 10,
+        "needs": [
+          "B",
+          "C"
+        ],
+        "earliestStart": 45,
+        "earliestFinish": 55,
+        "latestFinish": 55,
+        "latestStart": 45,
+        "slack": 0,
+        "critical": true
+      },
+      {
+        "id": "E",
+        "label": "Ready to ship",
+        "minutes": 0,
+        "needs": [
+          "D"
+        ],
+        "earliestStart": 55,
+        "earliestFinish": 55,
+        "latestFinish": 55,
+        "latestStart": 55,
+        "slack": 0,
+        "critical": true
+      }
+    ],
+    "criticalIDs": [
+      "A",
+      "C",
+      "D",
+      "E"
+    ],
+    "representativeChain": [
+      "A",
+      "C",
+      "D",
+      "E"
+    ],
+    "scope": "Elapsed-minute finish-to-start precedence model with unlimited parallel capacity. No staffing, calendars, costs, risk or execution guarantee."
+  },
+  "adjustment": {
+    "taskId": "C",
+    "extraMinutes": 20
+  },
+  "finishDelta": 5,
+  "taskChanges": [
+    {
+      "id": "A",
+      "startDelta": 0,
+      "finishDelta": 0,
+      "slackDelta": 0
+    },
+    {
+      "id": "B",
+      "startDelta": 0,
+      "finishDelta": 0,
+      "slackDelta": 5
+    },
+    {
+      "id": "C",
+      "startDelta": 0,
+      "finishDelta": 20,
+      "slackDelta": -15
+    },
+    {
+      "id": "D",
+      "startDelta": 5,
+      "finishDelta": 5,
+      "slackDelta": 0
+    },
+    {
+      "id": "E",
+      "startDelta": 5,
+      "finishDelta": 5,
+      "slackDelta": 0
+    }
+  ]
+}

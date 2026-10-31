@@ -1,0 +1,4 @@
+import {mkdir,writeFile} from 'node:fs/promises';import {EXAMPLE} from '../src/example.mjs';import {compareScenario} from '../src/scenario.mjs';import {makeProject,jsonReport,markdownReport} from '../src/files.mjs';import {renderTimeline} from '../src/timeline.mjs';
+const dir=new URL('../examples/',import.meta.url);await mkdir(dir,{recursive:true});const state={plan:EXAMPLE,result:compareScenario(EXAMPLE,'C',20)};
+for(const [name,value]of Object.entries({'plan.json':JSON.stringify(EXAMPLE,null,2)+'\n','project.json':JSON.stringify(makeProject(EXAMPLE,'C',20),null,2)+'\n','report.json':jsonReport(state),'brief.md':markdownReport(state),'baseline.svg':renderTimeline(state.result.baseline,'baseline'),'scenario.svg':renderTimeline(state.result.scenario,'scenario')}))await writeFile(new URL(name,dir),value);
+console.log(JSON.stringify({baseline:state.result.baseline.makespan,scenario:state.result.scenario.makespan,delta:state.result.finishDelta}));

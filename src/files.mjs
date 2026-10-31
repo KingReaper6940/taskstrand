@@ -3,7 +3,7 @@ export function makeProject(plan,taskId='',extraMinutes=0){plan=validatePlan(pla
 export function parseProject(text){
  if(typeof text!=='string'||text.length>60000)throw new Error('Project JSON must be at most 60,000 text units.');
  let value;try{value=JSON.parse(text);}catch{throw new Error('Could not read project JSON. Current work was preserved.');}
- if(!value||value.schema!=='taskstrand-project-v1'||!value.adjustment||Object.keys(value).some(k=>!['schema','plan','adjustment'].includes(k))||Object.keys(value.adjustment).some(k=>!['taskId','extraMinutes'].includes(k)))throw new Error('Expected a Taskstrand v1 project with plan and adjustment.');
+ if(!value||value.schema!=='taskstrand-project-v1'||!value.adjustment||typeof value.adjustment.taskId!=='string'||!Number.isInteger(value.adjustment.extraMinutes)||Object.keys(value).some(k=>!['schema','plan','adjustment'].includes(k))||Object.keys(value.adjustment).some(k=>!['taskId','extraMinutes'].includes(k)))throw new Error('Expected a Taskstrand v1 project with plan and adjustment.');
  return makeProject(value.plan,value.adjustment.taskId,value.adjustment.extraMinutes);
 }
 export const jsonReport=state=>JSON.stringify({schema:'taskstrand-report-v1',unit:'elapsed minutes',plan:state.plan,...state.result},null,2)+'\n';

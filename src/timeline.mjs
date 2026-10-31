@@ -9,7 +9,8 @@ export function renderTimeline(schedule,view='scenario'){
  '<rect width="1100" height="'+height+'" fill="#fbfaf7"/>',
  '<text x="25" y="32" font-family="monospace" font-size="18" fill="#233248">'+escape(short(schedule.title))+' · '+escape(view)+'</text>',
  '<text x="25" y="58" font-family="monospace" font-size="12" fill="#536175">Critical = orange; other work = blue; outlined tail = total slack</text>'];
- for(let i=0;i<=4;i++){const time=schedule.makespan*i/4,px=n(x(time));out.push('<line x1="'+px+'" y1="85" x2="'+px+'" y2="'+(height-40)+'" stroke="#dbe1e7"/>','<text x="'+px+'" y="80" font-size="11" font-family="monospace" fill="#536175">'+time+'m</text>');}
+ const steps=schedule.makespan===0?0:4;
+ for(let i=0;i<=steps;i++){const time=steps?schedule.makespan*i/steps:0,px=n(x(time));out.push('<line x1="'+px+'" y1="85" x2="'+px+'" y2="'+(height-40)+'" stroke="#dbe1e7"/>','<text x="'+px+'" y="80" font-size="11" font-family="monospace" fill="#536175">'+time+'m</text>');}
  schedule.rows.forEach((row,i)=>{const y=105+i*44,start=n(x(row.earliestStart)),finish=n(x(row.earliestFinish)),latest=n(x(row.latestFinish)),color=row.critical?'#ac432d':'#325a88';
   out.push('<g><title>'+escape(row.id+' — '+row.label+'; start '+row.earliestStart+', finish '+row.earliestFinish+', total slack '+row.slack+' minutes')+'</title>',
    '<text x="25" y="'+(y+14)+'" font-family="monospace" font-size="12" fill="#233248">'+escape(short(row.id+' · '+row.label))+'</text>');

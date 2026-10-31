@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="365" viewBox="0 0 1100 365" role="img" aria-labelledby="title description">
+<title id="title">Small release — baseline earliest-start timeline</title>
+<desc id="description">Elapsed minutes, unlimited parallel capacity. Solid bars are earliest work; outlined tails show total slack, not independently spendable free time. Labels may be shortened; full labels and values are in the report and table.</desc>
+<rect width="1100" height="365" fill="#fbfaf7"/>
+<text x="25" y="32" font-family="monospace" font-size="18" fill="#233248">Small release · baseline</text>
+<text x="25" y="58" font-family="monospace" font-size="12" fill="#536175">Critical = orange; other work = blue; outlined tail = total slack</text>
+<line x1="255" y1="85" x2="255" y2="325" stroke="#dbe1e7"/>
+<text x="255" y="80" font-size="11" font-family="monospace" fill="#536175">0m</text>
+<line x1="413.75" y1="85" x2="413.75" y2="325" stroke="#dbe1e7"/>
+<text x="413.75" y="80" font-size="11" font-family="monospace" fill="#536175">12.5m</text>
+<line x1="572.5" y1="85" x2="572.5" y2="325" stroke="#dbe1e7"/>
+<text x="572.5" y="80" font-size="11" font-family="monospace" fill="#536175">25m</text>
+<line x1="731.25" y1="85" x2="731.25" y2="325" stroke="#dbe1e7"/>
+<text x="731.25" y="80" font-size="11" font-family="monospace" fill="#536175">37.5m</text>
+<line x1="890" y1="85" x2="890" y2="325" stroke="#dbe1e7"/>
+<text x="890" y="80" font-size="11" font-family="monospace" fill="#536175">50m</text>
+<g><title>A — Confirm scope; start 0, finish 10, total slack 0 minutes</title>
+<text x="25" y="119" font-family="monospace" font-size="12" fill="#233248">A · Confirm scope</text>
+<rect x="255" y="105" width="127" height="20" rx="3" fill="#ac432d"/>
+<text x="915" y="119" font-family="monospace" font-size="11" fill="#233248">0–10m · slack 0</text></g>
+<g><title>B — Build the change; start 10, finish 40, total slack 0 minutes</title>
+<text x="25" y="163" font-family="monospace" font-size="12" fill="#233248">B · Build the change</text>
+<rect x="382" y="149" width="381" height="20" rx="3" fill="#ac432d"/>
+<text x="915" y="163" font-family="monospace" font-size="11" fill="#233248">10–40m · slack 0</text></g>
+<g><title>C — Prepare assets; start 10, finish 25, total slack 15 minutes</title>
+<text x="25" y="207" font-family="monospace" font-size="12" fill="#233248">C · Prepare assets</text>
+<rect x="572.5" y="193" width="190.5" height="20" fill="none" stroke="#536175" stroke-dasharray="3 3"/>
+<rect x="382" y="193" width="190.5" height="20" rx="3" fill="#325a88"/>
+<text x="915" y="207" font-family="monospace" font-size="11" fill="#233248">10–25m · slack 15</text></g>
+<g><title>D — Review together; start 40, finish 50, total slack 0 minutes</title>
+<text x="25" y="251" font-family="monospace" font-size="12" fill="#233248">D · Review together</text>
+<rect x="763" y="237" width="127" height="20" rx="3" fill="#ac432d"/>
+<text x="915" y="251" font-family="monospace" font-size="11" fill="#233248">40–50m · slack 0</text></g>
+<g><title>E — Ready to ship; start 50, finish 50, total slack 0 minutes</title>
+<text x="25" y="295" font-family="monospace" font-size="12" fill="#233248">E · Ready to ship</text>
+<path d="M 890 280 l 7 11 l -7 11 l -7 -11 Z" fill="#ac432d"/>
+<text x="915" y="295" font-family="monospace" font-size="11" fill="#233248">50–50m · slack 0</text></g>
+<text x="25" y="351" font-family="monospace" font-size="11" fill="#536175">Precedence lower bound only. No staffing, calendars or resource limits.</text></svg>
