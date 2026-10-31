@@ -1,5 +1,7 @@
 # Taskstrand
 
+[Open Taskstrand](https://taskstrand.vercel.app)
+
 **See the chain. Test the delay.** A local dependency planner for small, bounded plans. Inspect earliest/latest timing and total slack, then test one duration overrun without changing the baseline.
 
 ## Features
