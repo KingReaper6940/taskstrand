@@ -29,3 +29,5 @@ export function validatePlan(value){
  return {title:value.title,tasks:value.tasks.map(t=>({id:t.id,label:t.label,minutes:t.minutes,needs:[...t.needs]}))};
 }
 export function parsePlan(text){if(typeof text!=='string'||text.length>LIMITS.units)throw new PlanError([{task:null,field:'source',message:'Plan JSON must be at most 30,000 text units.'}]);let value;try{value=JSON.parse(text);}catch{throw new PlanError([{task:null,field:'source',message:'Could not parse plan JSON. Check quotes, commas and brackets.'}]);}return validatePlan(value);}
+
+export function formatPlan(value){const plan=validatePlan(value),pretty=JSON.stringify(plan,null,2);if(pretty.length<=LIMITS.units)return pretty;const compact=JSON.stringify(plan);if(compact.length>LIMITS.units)throw new PlanError([{task:null,field:'source',message:'Formatted plan exceeds the source limit.'}]);return compact;}

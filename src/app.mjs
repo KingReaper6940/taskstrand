@@ -1,4 +1,5 @@
-import {parsePlan,validatePlan} from './plan.mjs';import {compareScenario} from './scenario.mjs';import {renderTimeline} from './timeline.mjs';import {EXAMPLE} from './example.mjs';
+import {installHandoff} from './handoff.mjs';
+import {parsePlan,validatePlan,formatPlan} from './plan.mjs';import {compareScenario} from './scenario.mjs';import {renderTimeline} from './timeline.mjs';import {EXAMPLE} from './example.mjs';
 const $=id=>document.getElementById(id);let current=null;
 export const getCurrent=()=>current;
 export function clear(){document.dispatchEvent(new CustomEvent('taskstrand:clear'));current=null;$('results').hidden=true;$('errors').hidden=true;$('downloads').replaceChildren();$('timeline').replaceChildren();$('save-project').disabled=true;$('status').textContent='Inputs changed. Calculate again to refresh results.';}
@@ -21,7 +22,7 @@ export function calculate(){
   $('results').hidden=false;$('plan-title').textContent=plan.title;$('scenario-note').textContent=extraMinutes?'Task '+taskId+' takes '+extraMinutes+' extra minutes; baseline source is unchanged.':'No additional duration applied.';
   $('baseline-finish').textContent=result.baseline.makespan;$('scenario-finish').textContent=result.scenario.makespan;$('finish-delta').textContent='+'+result.finishDelta;
   $('status').textContent='Comparison ready under the unlimited-capacity precedence model.';renderView();document.dispatchEvent(new CustomEvent('taskstrand:ready'));
- }catch(error){$('errors').hidden=false;const messages=error.issues?error.issues.map(issue=>(issue.task?'Task row '+issue.task+' · ':'')+issue.field+' · '+issue.message):[error.message];for(const message of messages)$('error-list').append(node('li',message));$('status').textContent='Plan needs attention. All schedules and exports are blocked.';}
+ }catch(error){clear();$('errors').hidden=false;const messages=error.issues?error.issues.map(issue=>(issue.task?'Task row '+issue.task+' · ':'')+issue.field+' · '+issue.message):[error.message];for(const message of messages)$('error-list').append(node('li',message));$('status').textContent='Plan needs attention. All schedules and exports are blocked.';}
 }
 for(const id of ['source','delay-task','delay-minutes'])$(id).addEventListener('input',clear);
 for(const id of ['view','filter'])$(id).addEventListener('change',renderView);
@@ -29,9 +30,10 @@ $('calculate').addEventListener('click',calculate);
 $('add-task').addEventListener('click',()=>{
  try{const plan=parsePlan($('source').value),value=$('add-minutes').value;if(!value.trim())throw new Error('Enter task minutes, including 0 for a milestone.');
  const next=validatePlan({...plan,tasks:[...plan.tasks,{id:$('add-id').value.trim(),label:$('add-label').value.trim(),minutes:Number(value),needs:$('add-needs').value.trim()?$('add-needs').value.trim().split(/[,\s]+/):[]}]});
- $('source').value=JSON.stringify(next,null,2);clear();$('add-status').textContent='Task added. Calculate to inspect the revised plan.';
+ $('source').value=formatPlan(next);clear();$('add-status').textContent='Task added. Calculate to inspect the revised plan.';
  }catch(error){$('add-status').textContent=error.message;}
 });
 $('example').addEventListener('click',()=>start());
 export function start(){$('source').value=JSON.stringify(EXAMPLE,null,2);$('delay-task').value='C';$('delay-minutes').value='20';$('view').value='scenario';$('filter').value='all';calculate();}
+installHandoff({getCurrent,calculate});
 start();
